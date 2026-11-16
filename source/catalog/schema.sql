@@ -1,0 +1,17 @@
+PRAGMA foreign_keys=ON;
+CREATE TABLE catalog_categories (id INTEGER PRIMARY KEY, parent_id INTEGER REFERENCES catalog_categories(id), level INTEGER NOT NULL CHECK(level BETWEEN 1 AND 3), code TEXT NOT NULL UNIQUE CHECK(length(code)=level*2 AND code NOT GLOB '*[^0-9]*'), name TEXT NOT NULL, CHECK((level=1 AND parent_id IS NULL) OR (level>1 AND parent_id IS NOT NULL)));
+CREATE TABLE catalog_brands (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE);
+CREATE TABLE catalog_products (id INTEGER PRIMARY KEY, slug TEXT NOT NULL UNIQUE, name TEXT NOT NULL, brand_id INTEGER NOT NULL REFERENCES catalog_brands(id), category_id INTEGER NOT NULL REFERENCES catalog_categories(id), tax_type TEXT NOT NULL CHECK(tax_type IN ('regular','duty_free')), sort_order INTEGER NOT NULL, visible INTEGER NOT NULL CHECK(visible IN(0,1)));
+CREATE INDEX catalog_product_category_idx ON catalog_products(category_id);
+CREATE TABLE catalog_codes (code TEXT PRIMARY KEY CHECK(length(code)=12 AND code NOT GLOB '*[^0-9]*' AND substr(code,7,6)!='000000'), product_id INTEGER NOT NULL REFERENCES catalog_products(id), category_id INTEGER NOT NULL REFERENCES catalog_categories(id), is_current INTEGER NOT NULL CHECK(is_current IN(0,1)));
+CREATE UNIQUE INDEX catalog_one_current_code ON catalog_codes(product_id) WHERE is_current=1;
+CREATE TABLE catalog_aliases (namespace TEXT NOT NULL, identifier TEXT NOT NULL, product_id INTEGER NOT NULL REFERENCES catalog_products(id), PRIMARY KEY(namespace,identifier));
+CREATE INDEX catalog_alias_product_idx ON catalog_aliases(product_id);
+CREATE TABLE catalog_sequences (category_id INTEGER PRIMARY KEY REFERENCES catalog_categories(id), last_sequence INTEGER NOT NULL CHECK(last_sequence BETWEEN 0 AND 999999));
+CREATE TABLE catalog_texts (id INTEGER PRIMARY KEY, value TEXT NOT NULL UNIQUE);
+CREATE TABLE catalog_records (product_id INTEGER NOT NULL REFERENCES catalog_products(id), kind TEXT NOT NULL CHECK(kind IN ('source','card')), payload TEXT NOT NULL, PRIMARY KEY(product_id,kind));
+CREATE TABLE catalog_assets (product_id INTEGER NOT NULL REFERENCES catalog_products(id), kind TEXT NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(product_id,kind));
+CREATE TABLE catalog_prices (product_id INTEGER NOT NULL REFERENCES catalog_products(id), kind TEXT NOT NULL, amount REAL NOT NULL CHECK(amount>=0), PRIMARY KEY(product_id,kind));
+CREATE TABLE catalog_documents (name TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE catalog_discounts (month TEXT NOT NULL, product_id INTEGER NOT NULL REFERENCES catalog_products(id), regular_price REAL, sale_price REAL, PRIMARY KEY(month,product_id));
+CREATE TABLE catalog_state (key TEXT PRIMARY KEY, value TEXT NOT NULL);

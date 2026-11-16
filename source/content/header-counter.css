@@ -1,0 +1,64 @@
+/* Title, contact, and two-line counter share a single height. */
+.shop-main-row{align-items:center;--header-top-row:4.375rem;gap:24px}
+.header-cluster{display:flex;align-items:stretch;gap:12px;flex:none;min-width:0}
+.brand-group{display:grid;grid-template-rows:var(--header-top-row);gap:0;flex:none;min-width:0}
+.brand-group .brand{margin:0;line-height:1;align-self:center}
+.brand-tagline{margin:0;font-size:.75rem;line-height:1.4;color:#647080;white-space:nowrap}
+.header-shortcuts{display:flex;align-items:stretch;gap:12px;margin:0;flex:none}
+.header-shortcuts>a{display:grid;grid-template-rows:28px auto;gap:1px;justify-items:center;align-items:start;min-width:32px;line-height:1.4;margin:0}
+.header-shortcuts>a>svg{align-self:center;margin:0;width:24px;height:24px}
+.header-shortcuts>a>span{font-size:.75rem;line-height:1.4}
+.header-shortcuts>.home-install{display:grid;grid-template-rows:28px auto;gap:1px;justify-items:center;align-items:start;min-width:40px;width:40px;padding:0;border:0;background:transparent;color:#444;margin:0;line-height:1.4}
+.home-install>img{align-self:center;border-radius:6px;width:28px;height:28px}
+.home-install>span{font-size:.75rem;white-space:nowrap}
+.home-install:disabled{opacity:.6}
+footer{display:block}
+footer .footer-top{display:grid;grid-template-columns:minmax(0,1fr) max-content;grid-template-rows:auto auto;align-items:center;gap:5px 18px;max-width:1140px;margin:auto;text-align:left}
+footer .footer-title{grid-column:1;grid-row:1;line-height:1.5;white-space:nowrap}
+footer .footer-links{grid-column:1;grid-row:2;display:flex;align-items:center;justify-content:flex-start;flex-wrap:nowrap;gap:0 18px;line-height:1.5}
+footer .footer-links>a{margin:0;white-space:nowrap}
+footer .footer-top>.visitor-counter{grid-column:2;grid-row:1/3;align-self:stretch;min-height:0;margin:0;padding:0 9px;gap:0;grid-template-rows:repeat(2,minmax(0,1fr))}
+footer .visitor-counter>div{padding:0;line-height:1.4}
+footer>p{margin:14px auto 0;max-width:1140px;text-align:left}
+@media(max-width:600px){footer .footer-top{gap:4px 8px;font-size:.75rem}footer .footer-links{gap:0 10px}footer .footer-top>.visitor-counter{min-width:84px;padding:0 6px}footer .visitor-counter>div{font-size:.75rem;gap:6px}}
+.install-guide{width:min(400px,calc(100% - 32px));padding:24px;border:1px solid #d9dfe7;border-radius:16px;color:#24364d;background:#fff}
+.install-guide::backdrop{background:#0006}
+.install-guide h2{font-size:1.25rem;line-height:1.4}
+.install-guide p{font-size:1rem;line-height:1.7}
+.install-guide img{border-radius:12px}
+.install-guide form{text-align:right;margin:0 0 8px}
+.install-close{padding:8px 12px;background:#f2f4f7;border:1px solid #d9dfe7;border-radius:6px;font-size:.875rem;color:#24364d}
+.install-guide .install-guide-note{font-size:.875rem;color:#647080}
+.visitor-counter{display:grid;grid-template-rows:repeat(2,minmax(0,1fr));gap:0;min-width:100px;padding:2px 9px;border:1px solid #d9dfe7;border-radius:5px;background:#fff;color:#555}
+.visitor-counter>div{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.875rem;line-height:1.4;white-space:nowrap}
+.visitor-counter strong{font-size:inherit;font-weight:750;color:#3158ac;font-variant-numeric:tabular-nums}
+@media(max-width:760px){
+ .shop-main-row{--header-top-row:3.75rem;gap:8px;flex-wrap:wrap}
+ .header-cluster{order:0;width:100%;gap:8px}
+ .brand-group{flex:1;max-width:none}
+ .brand-tagline{white-space:normal}
+ .header-shortcuts{order:initial;gap:8px;margin:0}
+ .visitor-counter{min-width:90px;padding:2px 7px}
+ .shop-search{order:1;flex:1 1 100%;align-self:stretch}
+}
+
+/* Header identity uses the supplied icon style as a horizontal image banner. */
+.brand-group .brand{display:block;width:210px;max-width:100%;font-size:0;letter-spacing:0}
+.brand-banner{display:block;width:100%;height:auto;object-fit:contain}
+@media(max-width:760px){.brand-group .brand{width:180px;max-width:100%}}
+
+/* Keep contact and home-screen controls against the right edge. */
+.shop-main-row{gap:36px}
+.header-cluster{flex:0 1 auto;width:auto}
+.header-shortcuts{margin-left:auto;gap:0}
+@media(max-width:760px){
+ .shop-main-row{gap:10px 24px}
+ .header-cluster{order:0;flex:1;min-width:0;width:auto;gap:0}
+ .header-shortcuts{order:1;margin-left:auto;gap:0}
+ .shop-search{order:2;flex:1 1 100%}
+}
+
+/* Reserve the search field width for the full prompt. */
+.shop-search input{padding:0 2px;text-align:left;font-size:1rem}
+.shop-search button{width:34px;min-width:34px;padding:0}
+@media(max-width:760px){.shop-search input::placeholder{font-size:clamp(.875rem,3.9vw,1rem);letter-spacing:0}}

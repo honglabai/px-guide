@@ -1,0 +1,11 @@
+.sites-runtime/
+work/
+outputs/
+*.tar.gz
+node_modules/
+
+.worktrees/
+# Generated compatibility inputs; canonical product database is catalog/database.json.
+content/products.json
+content/monthly.json
+content/monthly-archive/*.json

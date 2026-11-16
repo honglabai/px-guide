@@ -1,0 +1,54 @@
+{
+  "px-skincare-starter": [
+    {
+      "name": "아누아 어성초 77 B3징크 수딩 크림",
+      "brand": "아누아",
+      "imageUrl": "https://anua.kr/web/product/big/202602/9d1b54d9ae80486ada14c339a2011970.png",
+      "productUrl": "https://anua.kr/product/detail.html?cate_no=87&product_no=494",
+      "note": "브랜드 공식몰의 상품 사진입니다. PX 취급 여부와 판매 구성은 별도 확인이 필요합니다."
+    }
+  ],
+  "px-cleanser-choice": [
+    {
+      "name": "비플레인 녹두 약산성 클렌징폼 80ml",
+      "brand": "비플레인",
+      "imageUrl": "https://www.beplain.co.kr/shopimages/beplain01/0120010000152.jpg?1788138807",
+      "productUrl": "https://www.beplain.co.kr/shop/shopdetail.html?branduid=15",
+      "note": "브랜드 공식몰의 단품 사진입니다. 매장 상품의 용량과 구성은 다시 확인하세요."
+    }
+  ],
+  "px-serum-comparison": [
+    {
+      "name": "비플레인 녹두 모공 타이트업 세럼 30ml",
+      "brand": "비플레인",
+      "imageUrl": "https://beplain.co.kr/shopimages/beplain01/0120010000332.jpg?1789960814",
+      "productUrl": "https://beplain.co.kr/shop/shopdetail.html?branduid=10738943",
+      "note": "브랜드 공식몰의 상품 사진입니다. PX 취급 여부와 가격은 확인되지 않았습니다."
+    }
+  ],
+  "px-summer-essentials": [
+    {
+      "name": "아비브 어성초 진정 시트 마스크 데일리 픽",
+      "brand": "아비브",
+      "imageUrl": "https://cafe24.poxo.com/ec01/fourco/2gThsm3PjxnX2xgNPAJB00I0U4iIreUG+0gOqwQGa9svvRSV4zdgIN9b3kw9gM5JlY9B6hRCD2CqcLf19xZjlw==/_/web/product/big/202512/dda3ad15a47a4436c9e05cbd75dc85ae.jpg",
+      "productUrl": "https://abib.co.kr/product/detail.html?product_no=629",
+      "note": "공식 상품 페이지에 표시된 상품 사진입니다. 실제 PX 판매 구성은 매장에서 확인하세요."
+    },
+    {
+      "name": "아비브 껌딱지 시트 마스크 어성초 스티커",
+      "brand": "아비브",
+      "imageUrl": "https://cafe24.poxo.com/ec01/fourco/2gThsm3PjxnX2xgNPAJB00I0U4iIreUG+0gOqwQGa9svvRSV4zdgIN9b3kw9gM5JlY9B6hRCD2CqcLf19xZjlw==/_/web/product/big/202307/fa92c0f4a321b0562fc1f8fefc26f1aa.jpg",
+      "productUrl": "https://abib.co.kr/product/detail.html?product_no=323",
+      "note": "공식 상품 페이지에 표시된 상품 사진입니다. 묶음 수량과 규격은 매장에 따라 다를 수 있습니다."
+    }
+  ],
+  "px-food-shopping-list": [
+    {
+      "name": "티각태각 부각믹스 220g",
+      "brand": "티각태각",
+      "imageUrl": "https://tigaktegak.co.kr/data/goods/1/2022/12/1_temp_16710868333296large.jpg",
+      "productUrl": "https://tigaktegak.co.kr/goods/view?no=1",
+      "note": "제조사 공식몰에 표시된 상품 사진입니다. PX 취급 여부와 가격은 확인이 필요합니다."
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "catalog_categories": [
+    "id",
+    "parent_id",
+    "level",
+    "code",
+    "name"
+  ],
+  "catalog_brands": [
+    "id",
+    "name"
+  ],
+  "catalog_products": [
+    "id",
+    "slug",
+    "name",
+    "brand_id",
+    "category_id",
+    "tax_type",
+    "sort_order",
+    "visible"
+  ],
+  "catalog_codes": [
+    "code",
+    "product_id",
+    "category_id",
+    "is_current"
+  ],
+  "catalog_aliases": [
+    "namespace",
+    "identifier",
+    "product_id"
+  ],
+  "catalog_sequences": [
+    "category_id",
+    "last_sequence"
+  ],
+  "catalog_texts": [
+    "id",
+    "value"
+  ],
+  "catalog_records": [
+    "product_id",
+    "kind",
+    "payload"
+  ],
+  "catalog_assets": [
+    "product_id",
+    "kind",
+    "payload"
+  ],
+  "catalog_prices": [
+    "product_id",
+    "kind",
+    "amount"
+  ],
+  "catalog_documents": [
+    "name",
+    "payload"
+  ],
+  "catalog_discounts": [
+    "month",
+    "product_id",
+    "regular_price",
+    "sale_price"
+  ]
+}

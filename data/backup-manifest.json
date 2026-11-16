@@ -1,0 +1,84 @@
+{
+  "sourceCommit": "93e3a02d8b978b53cf71522098ea0f7ba23264bd",
+  "siteVersion": 168,
+  "catalogVersion": "86f21ee5ac5b29b66bcab969",
+  "kind": "reconstructed-current-site-data-not-full-live-database-dump",
+  "tables": {
+    "catalog_categories": {
+      "rows": 186,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_brands": {
+      "rows": 669,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_products": {
+      "rows": 2312,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_codes": {
+      "rows": 2601,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_aliases": {
+      "rows": 4604,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_sequences": {
+      "rows": 115,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_texts": {
+      "rows": 13833,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_records": {
+      "rows": 4616,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_assets": {
+      "rows": 4612,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_prices": {
+      "rows": 4669,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_documents": {
+      "rows": 4,
+      "source": "latest deployed source catalog"
+    },
+    "catalog_discounts": {
+      "rows": 120,
+      "source": "latest deployed source catalog"
+    },
+    "coupang_price_current": {
+      "rows": 0,
+      "source": "live table read"
+    },
+    "feedback_posts": {
+      "rows": 1,
+      "source": "live table read"
+    },
+    "price_history": {
+      "rows": 0,
+      "source": "live table read"
+    },
+    "price_update_queue": {
+      "rows": 0,
+      "source": "live table read"
+    },
+    "shopping_shares": {
+      "rows": 0,
+      "source": "live table read"
+    }
+  },
+  "excludedLiveData": [
+    "daily_visits",
+    "product_interest_daily",
+    "catalog_merge_runs",
+    "catalog_merge_archive",
+    "catalog_state:historic-part-markers"
+  ],
+  "note": "Traffic, interest analytics and historical migration rollback archives are not exported. Catalog is reconstructed from latest deployed source; dynamic tables were read separately."
+}

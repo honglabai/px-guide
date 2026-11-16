@@ -1,0 +1,132 @@
+{
+  "core": {
+    "px-shopping-checklist": {
+      "step": "01 · 방문 준비",
+      "question": "방문 전에 무엇을 확인할까?",
+      "checks": [
+        "이용 조건·운영시간",
+        "필요한 상품·예산",
+        "재고 문의"
+      ]
+    },
+    "compare-unit-prices": {
+      "step": "02 · 가격 계산",
+      "question": "묶음이 정말 저렴할까?",
+      "checks": [
+        "같은 규격·구성",
+        "100ml·1개당 금액",
+        "실제 결제액"
+      ]
+    },
+    "monthly-deal-guide": {
+      "step": "03 · 행사 확인",
+      "question": "할인표를 어떻게 읽을까?",
+      "checks": [
+        "행사 기간",
+        "대상 매장·규격",
+        "수량·결제 조건"
+      ]
+    },
+    "px-skincare-starter": {
+      "step": "화장품",
+      "question": "처음 고를 품목 하나는?",
+      "checks": [
+        "현재 상품과 역할",
+        "본품·증정품 용량",
+        "사용기한"
+      ]
+    },
+    "px-cleanser-choice": {
+      "step": "화장품",
+      "question": "클렌저는 무엇을 비교할까?",
+      "checks": [
+        "폼·스크럽 구분",
+        "용량·묶음",
+        "사용 빈도"
+      ]
+    },
+    "px-serum-comparison": {
+      "step": "화장품",
+      "question": "세럼·앰플 중 무엇이 필요할까?",
+      "checks": [
+        "기존 루틴과 중복",
+        "용량·제형",
+        "사용기한"
+      ]
+    },
+    "px-beauty-device-checklist": {
+      "step": "고가 상품",
+      "question": "뷰티기기 구매 전에 무엇을 볼까?",
+      "checks": [
+        "정확한 모델·구성",
+        "소모품·보증",
+        "교환·반품 조건"
+      ]
+    },
+    "px-food-shopping-list": {
+      "step": "먹거리",
+      "question": "먹을 만큼만 사려면?",
+      "checks": [
+        "보관 온도",
+        "소비기한·알레르기",
+        "실제 먹을 수량"
+      ]
+    },
+    "px-summer-essentials": {
+      "step": "계절 상품",
+      "question": "여름용품은 얼마나 살까?",
+      "checks": [
+        "사용 기간",
+        "향·구성",
+        "보관 장소"
+      ]
+    },
+    "px-liquor-vat-exemption": {
+      "step": "주류 · 면제 혜택",
+      "question": "군마트 주류 부가세 면제는 어떻게 받을까?",
+      "checks": [
+        "현역 장병·군무원·가족 자격",
+        "본인 명의 휴대폰 실명인증",
+        "회원 증명 바코드·QR 제시"
+      ]
+    }
+  },
+  "support": {
+    "화장품·개인관리": [
+      "px-guide-sunscreen-texture",
+      "px-guide-mask-routine",
+      "px-guide-toner-choice",
+      "px-guide-haircare",
+      "px-guide-body-care",
+      "px-guide-lip-care",
+      "px-guide-mens-grooming",
+      "px-guide-hand-care",
+      "px-guide-travel-cosmetics",
+      "px-guide-skin-patch-test"
+    ],
+    "먹거리·보관": [
+      "px-guide-snack-storage",
+      "px-guide-breakfast-kit",
+      "px-guide-coffee-selection",
+      "px-guide-vitamin-storage",
+      "px-guide-office-snacks",
+      "px-guide-camping-food",
+      "px-guide-weekend-stock",
+      "px-guide-kids-gift"
+    ],
+    "방문·생활·예산": [
+      "px-guide-gift-budget",
+      "px-guide-travel-kit",
+      "px-guide-label-reading",
+      "px-guide-seasonal-cart",
+      "px-guide-receipt-log",
+      "px-guide-laundry-care",
+      "px-guide-rainy-day",
+      "px-guide-home-fragrance",
+      "px-guide-sleep-routine",
+      "px-guide-gift-wrapping",
+      "px-guide-budget-notes",
+      "px-guide-reusable-items"
+    ]
+  }
+}

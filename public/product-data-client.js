@@ -1,0 +1,14 @@
+(() => {
+ const records=new Map(),pending=new Map();let manifestPromise,indexPromise,legacyPromise;
+ const legacy=()=>legacyPromise??=fetch('/favorites-data.json').then(r=>{if(!r.ok)throw Error('catalog');return r.json();}).catch(e=>{legacyPromise=null;throw e;});
+ async function manifest(){if(!manifestPromise)manifestPromise=fetch('/catalog/manifest.json').then(async r=>{if(!r.ok)throw Error('manifest');return r.json();}).catch(e=>{manifestPromise=null;throw e;});return manifestPromise;}
+ async function index(){if(!indexPromise)indexPromise=(async()=>{const meta=await manifest(),r=await fetch(meta.index);if(!r.ok)throw Error('index');const data=await r.json();if(data.version!==meta.version)throw Error('version');return data;})().catch(e=>{indexPromise=null;throw e;});return indexPromise;}
+ const canonical=slug=>window.pxResolveProductSlug?.(slug)||slug;
+ async function products(slugs){const requested=[...new Set(slugs)].filter(s=>typeof s==='string'&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s));const ids=[...new Set(requested.map(canonical))];const missing=ids.filter(s=>!records.has(s)&&!pending.has(s));
+  if(missing.length){const job=(async()=>{try{const meta=await manifest();for(let i=0;i<missing.length;i+=50){const batch=missing.slice(i,i+50),r=await fetch('/api/catalog/products?v='+meta.version+'&ids='+encodeURIComponent(batch.join(',')));if(!r.ok)throw Error('catalog');const data=await r.json();if(data.version!==meta.version)throw Error('version');for(const p of data.products)records.set(p.slug,p);}}catch{const all=await legacy();for(const p of all)records.set(p.slug,p);}})();for(const id of missing)pending.set(id,job);try{await job;}finally{for(const id of missing)pending.delete(id);}}
+  await Promise.all(ids.map(id=>pending.get(id)).filter(Boolean));return requested.map(id=>{const target=canonical(id),p=records.get(target);return p&&id!==target?{...p,slug:id,canonicalSlug:target}:p;}).filter(Boolean);
+ }
+ async function catalog(){try{const data=await index();const initial=await products(data.products.filter(p=>p.catalogVisible!==false).slice(0,10).map(p=>p.slug));const full=new Map(initial.map(p=>[p.slug,p]));return data.products.map(p=>full.has(p.slug)?{...p,...full.get(p.slug),_catalogFull:true}:p);}catch{return legacy();}}
+ async function list(slugs){let shared=[];try{const c=new URLSearchParams(location.search).get('list');if(c&&c.length<=12000){const v=JSON.parse(atob(c.replaceAll('-','+').replaceAll('_','/')));if(Array.isArray(v)&&v.length<=60)shared=v.filter(x=>Array.isArray(x)&&x.length===2&&Number.isInteger(x[1])&&x[1]>=1&&x[1]<=99).map(x=>x[0]);}}catch{}return products([...slugs,...shared]);}
+ window.pxCatalogData={index,catalog,products,list,groupCount:async group=>{try{return (await index()).groups[group]||0;}catch{return (await legacy()).filter(p=>p.productGroup===group).length;}},cached:slug=>records.get(canonical(slug))};
+})();

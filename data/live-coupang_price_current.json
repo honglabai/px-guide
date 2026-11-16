@@ -1,0 +1,1 @@
+{"columns":["product_slug","product_id","item_id","vendor_item_id","normalized_name","normalized_spec","normalized_quantity","displayed_price","shipping_fee","seller","price_condition","source_url","match_score","checked_at","last_history_id","comparison_quantity","comparison_basis","catalog_product_key"],"rows":[],"source":"live D1 read","capturedDateKST":"2026-11-13"}

@@ -1,0 +1,11 @@
+/* Shared title tabs use the same typography and vertical padding as the navigation. */
+:root{--title-tab-font:1rem;--title-tab-pad:4.8px}
+.title-tab-line{--title-tab-color:#245bbd;display:block;border-bottom:2px solid var(--title-tab-color);background:transparent;margin:0 0 6px;padding:0}
+.title-tab-green{--title-tab-color:#15804d}
+.list-pagehead.title-tab-line{margin:4px auto 0;padding:0;max-width:var(--site-width);background:transparent}
+.title-tab-line .title-tab,.shopping-share-dialog .title-tab-line h2{display:inline-block;margin:0;padding:var(--title-tab-pad) 24px var(--title-tab-pad) 10px;background:var(--title-tab-color);color:#fff;font-family:inherit;font-size:var(--title-tab-font);font-weight:750;line-height:1.25;letter-spacing:normal;clip-path:polygon(0 0,calc(100% - 15px) 0,100% 100%,0 100%);border-radius:0}
+.shopping-share-dialog .title-tab-line{margin:0 48px 6px 0}
+.share-link-actions{display:flex;gap:6px;margin:4px 0 0}.shopping-share-dialog .share-link-actions button{flex:1;margin:0}
+.app-help-dialog{width:min(520px,calc(100% - 20px));max-height:85dvh;padding:5px;border:1px solid #bfd0e7;border-radius:8px;color:#17355e;background:#fff;overflow:auto;box-sizing:border-box}
+.app-help-dialog::backdrop{background:#17253780}.app-help-dialog dl{margin:5px 0}.app-help-dialog dl>div{padding:3px 0;border-bottom:1px solid #e2e8f0;font-size:14px;line-height:1.4}.app-help-dialog dt{display:inline;font-weight:750;font-size:14px;color:#245bbd;line-height:inherit}.app-help-dialog dt::after{content:": "}.app-help-dialog dd{display:inline;margin:0;font-size:14px;line-height:inherit}.app-help-controls{display:flex;align-items:center;justify-content:space-between;gap:5px;padding:5px 0 0}.app-help-controls label{display:flex;align-items:center;gap:5px;font-size:14px}.app-help-controls input{width:18px;height:18px;margin:0}.app-help-controls button{border:0;background:#245bbd;color:#fff;font:inherit;font-weight:700;border-radius:5px;padding:6px 16px;min-height:36px;cursor:pointer}
+@media(max-width:600px){:root{--title-tab-font:clamp(.875rem,3.9vw,1rem)}}

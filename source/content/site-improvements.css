@@ -1,0 +1,30 @@
+.home-shuffle{position:relative;touch-action:pan-y}
+.shuffle-coupang.shuffle-image-banner{background:#082c87}
+.shuffle-track{transition:transform 350ms ease}
+.shuffle-dots{position:absolute;bottom:0;left:50%;transform:translateX(-50%);display:flex;gap:0;background:transparent;border-radius:20px;padding:0 4px}
+.shuffle-dots button{width:20px;height:24px;border:0;background:transparent;display:grid;justify-items:center;align-items:end;cursor:pointer;padding:0 0 2px}
+.shuffle-dots button::after{content:'';width:7px;height:7px;border-radius:50%;background:#a8b2ad}
+.shuffle-dots button[aria-current=true]::after{background:#08764d;width:9px;height:9px}
+.shuffle-dots button:focus-visible{outline:2px solid #08764d;outline-offset:-3px;border-radius:12px}
+.product-main-price .product-rate{white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.shuffle-track{transition:none}}
+
+/* Keep both shared header rows visible while the page content scrolls. */
+body>header{position:sticky;top:0;z-index:40;background:#fff;padding-top:env(safe-area-inset-top,0px)}
+.shop-header .shop-main-row{min-height:0;padding-top:4px;padding-bottom:2px}
+.shop-header .shop-nav,.shop-header-home .shop-nav{padding-top:0;padding-bottom:0}
+.home-shell{padding-top:2px}
+.home-shuffle{margin-top:0}
+@media(max-width:760px){
+ .home-shuffle,.home-shuffle:has(.shuffle-month-banner),.home-shuffle:has(.shuffle-image-banner){height:auto;min-height:0;aspect-ratio:3/1}
+ .home-shuffle .shuffle-track{position:absolute;inset:0;height:100%}
+}
+
+/* Navigation order: home, all products, monthly offers, nearby PX. */
+.shop-nav a,.shop-nav a[aria-current="page"]{padding-top:4.8px;padding-bottom:4.8px}
+body>header{border-bottom:3px solid #fff}
+.shop-nav a:nth-child(2){--nav-tab-ratio:5}.shop-nav a:nth-child(3){--nav-tab-ratio:6}
+.home-coupang-ad{margin:18px 0 0}.home-ad-label{display:block;margin:0 0 3px;font-size:.7rem;color:#6c7787}
+.home-coupang-ad-link{display:block;overflow:hidden;border-radius:6px;background:#082c87;line-height:0}
+.home-coupang-ad-link picture,.home-coupang-ad-link img{display:block;width:100%;height:auto}
+.home-coupang-ad-link:focus-visible{outline:3px solid #245bbd;outline-offset:3px}

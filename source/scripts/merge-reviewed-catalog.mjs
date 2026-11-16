@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+import {spawnSync} from 'node:child_process';
+import {mergeReviewed} from '../catalog/merge-data.mjs';
+const base=JSON.parse(fs.readFileSync('catalog/merge-baseline-20261025.json'));
+const selection=JSON.parse(fs.readFileSync('catalog/merge-selection-20261025.json'));
+const result=mergeReviewed(base,selection);
+const registry=JSON.parse(fs.readFileSync('catalog/registry.json'));
+for(const [old,canonical] of Object.entries(result.redirects))registry[old].mergedInto=canonical;
+fs.writeFileSync('catalog/registry.json',JSON.stringify(registry));fs.writeFileSync('catalog/database.json',JSON.stringify(result.tables));
+fs.writeFileSync('catalog/product-aliases.json',JSON.stringify(result.redirects,null,2));
+const built=spawnSync(process.execPath,['build.mjs','--refresh-merged-cards'],{stdio:'inherit'});if(built.status!==0)process.exit(built.status||1);

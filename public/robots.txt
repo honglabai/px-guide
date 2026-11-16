@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://px-monthly-guide-2026.zeromorow.chatgpt.site/sitemap.xml

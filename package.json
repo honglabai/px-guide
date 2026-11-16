@@ -1,0 +1,13 @@
+{
+  "name": "px-guide",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Static build ready in public/'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.1",
+    "pg": "^8.13.3"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "note": "External image references preserved, not downloaded as part of this bundle. Locally referenced images are in source/assets and source/dist/client/images.",
+  "references": [
+    {
+      "field": "source/content/product-images.json.px-skincare-starter[0].imageUrl",
+      "url": "https://anua.kr/web/product/big/202602/9d1b54d9ae80486ada14c339a2011970.png"
+    },
+    {
+      "field": "source/content/product-images.json.px-cleanser-choice[0].imageUrl",
+      "url": "https://www.beplain.co.kr/shopimages/beplain01/0120010000152.jpg?1788138807"
+    },
+    {
+      "field": "source/content/product-images.json.px-serum-comparison[0].imageUrl",
+      "url": "https://beplain.co.kr/shopimages/beplain01/0120010000332.jpg?1789960814"
+    },
+    {
+      "field": "source/content/product-images.json.px-summer-essentials[0].imageUrl",
+      "url": "https://cafe24.poxo.com/ec01/fourco/2gThsm3PjxnX2xgNPAJB00I0U4iIreUG+0gOqwQGa9svvRSV4zdgIN9b3kw9gM5JlY9B6hRCD2CqcLf19xZjlw==/_/web/product/big/202512/dda3ad15a47a4436c9e05cbd75dc85ae.jpg"
+    },
+    {
+      "field": "source/content/product-images.json.px-summer-essentials[1].imageUrl",
+      "url": "https://cafe24.poxo.com/ec01/fourco/2gThsm3PjxnX2xgNPAJB00I0U4iIreUG+0gOqwQGa9svvRSV4zdgIN9b3kw9gM5JlY9B6hRCD2CqcLf19xZjlw==/_/web/product/big/202307/fa92c0f4a321b0562fc1f8fefc26f1aa.jpg"
+    },
+    {
+      "field": "source/content/product-images.json.px-food-shopping-list[0].imageUrl",
+      "url": "https://tigaktegak.co.kr/data/goods/1/2022/12/1_temp_16710868333296large.jpg"
+    }
+  ]
+}

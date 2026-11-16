@@ -1,0 +1,74 @@
+{
+  "https://company.lottechilsung.co.kr/common/images/product_view0109_bh1.jpg": {
+    "sourceUrl": "https://pxpick.com/big/3106.jpg",
+    "file": "assets/product-originals/fallback-3106.jpg"
+  },
+  "https://www.surulerefoods.com/cdn/shop/files/1722634698699820.jpg?v=1756450774&width=1946": {
+    "sourceUrl": "https://pxpick.com/big/4482.jpg",
+    "file": "assets/product-originals/fallback-4482.jpg"
+  },
+  "https://sitem.ssgcdn.com/70/01/77/item/1000556770170_i1_1200.jpg": {
+    "sourceUrl": "https://pxpick.com/big/3846.jpg",
+    "file": "assets/product-originals/fallback-3846.jpg"
+  },
+  "https://sitem.ssgcdn.com/90/72/98/item/1000063987290_i1_1100.jpg": {
+    "sourceUrl": "https://pxpick.com/big/35884.jpg",
+    "file": "assets/product-originals/fallback-35884.jpg"
+  },
+  "https://m.bakingmon.com/web/product/big/202503/a78b14b3e9c6c8ad18070efddb134ec6.jpg": {
+    "sourceUrl": "https://pxpick.com/big/35888.jpg",
+    "file": "assets/product-originals/fallback-35888.jpg"
+  },
+  "https://sitem.ssgcdn.com/10/25/87/item/1000532872510_i1_1100.jpg": {
+    "sourceUrl": "https://pxpick.com/big/35828.jpg",
+    "file": "assets/product-originals/fallback-35828.jpg"
+  },
+  "https://thumbnail7.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/4449346661480342-35156fbf-c44a-425c-9809-0f44f656fea2.jpg": {
+    "sourceUrl": "https://pxpick.com/big/35764.jpg",
+    "file": "assets/product-originals/fallback-35764.jpg"
+  },
+  "https://image.coupangcdn.com/image/retail/images/d11b8613-86bd-4ef2-8cf6-960ad10fd5ed2812444092948290798.png": {
+    "sourceUrl": "https://pxpick.com/big/35760.jpg",
+    "file": "assets/product-originals/fallback-35760.jpg"
+  },
+  "https://sitem.ssgcdn.com/43/66/59/item/1000610596643_i1_1200.jpg": {
+    "sourceUrl": "https://pxpick.com/big/35758.jpg",
+    "file": "assets/product-originals/fallback-35758.jpg"
+  },
+  "https://www.kakuyasu.co.jp/images/commodityExtention/00004148/00004148-main.jpg": {
+    "sourceUrl": "https://pxpick.com/big/35980.jpg",
+    "file": "assets/product-originals/fallback-35980.jpg"
+  },
+  "https://happymart.com.au/cdn/shop/products/1n4UzX4WDWnTSwesT6JcX0OGKU4fEZLeS_500x560.jpg?v=1609429625": {
+    "sourceUrl": "https://pxpick.com/big/25698.jpg",
+    "file": "assets/product-originals/fallback-25698.jpg"
+  },
+  "https://mimg.segye.com/content/image/2024/05/29/ori/20240529505667.jpg": {
+    "sourceUrl": "https://pxpick.com/big/37364.jpg",
+    "file": "assets/product-originals/fallback-37364.jpg"
+  },
+  "/images/product-originals/abib-heartleaf-140pads.jpg": {
+    "sourceUrl": "https://sitem.ssgcdn.com/38/52/33/item/1000647335238_i1_1200.jpg",
+    "file": "assets/product-originals/abib-heartleaf-140pads.jpg"
+  },
+  "/images/product-originals/torriden-cellmazing-main.jpg": {
+    "sourceUrl": "https://product-image.kurly.com/product/image/d70bc6be-787d-48d4-9918-3bb616209214.jpg",
+    "file": "assets/product-originals/torriden-cellmazing-main.jpg"
+  },
+  "/images/product-originals/parnell-cicamanu92-30ml.jpg": {
+    "sourceUrl": "https://image.msscdn.net/thumbnails/images/goods_img/20230831/3516081/3516081_17612713685906_big.jpg?w=1200",
+    "file": "assets/product-originals/parnell-cicamanu92-30ml.jpg"
+  },
+  "/images/product-originals/georgia-original-240ml-02.jpg": {
+    "sourceUrl": "https://image.oliveyoung.co.kr/cfimages/cf-goods/uploads/images/thumbnails/10/0000/0010/B00000010151002ko.jpg?l=ko",
+    "file": "assets/product-originals/georgia-original-240ml-02.jpg"
+  },
+  "/images/product-originals/contrabase-black-500ml.jpg": {
+    "sourceUrl": "https://static.megamart.com/product/image/1251/12516179/12516179_1_960.jpg",
+    "file": "assets/product-originals/contrabase-black-500ml.jpg"
+  },
+  "/images/product-originals/contrabase-almond-500ml.jpg": {
+    "sourceUrl": "https://static.megamart.com/product/image/1377/13776008/13776008_1_960.jpg",
+    "file": "assets/product-originals/contrabase-almond-500ml.jpg"
+  }
+}

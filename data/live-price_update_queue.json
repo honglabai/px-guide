@@ -1,0 +1,1 @@
+{"columns":["product_slug","status","priority","attempts","last_attempt_at","next_attempt_at","lock_expires_at","last_checked_at","last_error","created_at","updated_at","catalog_product_key"],"rows":[],"source":"live D1 read","capturedDateKST":"2026-11-13"}

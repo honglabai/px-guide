@@ -1,0 +1,18 @@
+{
+  "sourceFilesMatchDeployedCommit": true,
+  "trackedRegularFiles": 14358,
+  "latestCommitPriceChangesIncluded": 311,
+  "sqliteIntegrity": "ok",
+  "foreignKeyViolations": 0,
+  "sqlRestoreVerified": true,
+  "buildRerun": false,
+  "newHostDeploymentTested": false,
+  "externalImageReferences": 6,
+  "dynamicBackupCompleteTables": [
+    "price_history",
+    "coupang_price_current",
+    "shopping_shares",
+    "feedback_posts",
+    "price_update_queue"
+  ]
+}
