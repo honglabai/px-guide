@@ -9,15 +9,32 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { data: rows, error } = await supabase
-      .from('coupang_price_current')
-      .select('slug:product_slug, displayedPrice:displayed_price, comparisonQuantity:comparison_quantity, shippingFee:shipping_fee, sourceUrl:source_url, checkedAt:checked_at');
+    const pageSize = 1000;
+    let allRows = [];
+    let from = 0;
+    let hasMore = true;
 
-    if (error) throw error;
+    while (hasMore) {
+      const { data: rows, error } = await supabase
+        .from('coupang_price_current')
+        .select('slug:product_slug, displayedPrice:displayed_price, comparisonQuantity:comparison_quantity, shippingFee:shipping_fee, sourceUrl:source_url, checkedAt:checked_at')
+        .range(from, from + pageSize - 1);
 
-    const prices = (rows || []).map((row) => ({
+      if (error) throw error;
+      if (rows && rows.length > 0) {
+        allRows.push(...rows);
+        from += pageSize;
+        if (rows.length < pageSize) {
+          hasMore = false;
+        }
+      } else {
+        hasMore = false;
+      }
+    }
+
+    const prices = allRows.map((row) => ({
       ...row,
-      comparisonUnitPrice: row.displayedPrice && row.comparisonQuantity ? Math.round(row.displayedPrice / row.comparisonQuantity) : null
+      comparisonUnitPrice: row.displayedPrice && row.comparisonQuantity ? (row.displayedPrice / row.comparisonQuantity) : null
     }));
 
     return res.status(200).json({ prices });

@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
     const prices = (rows || []).map((row) => ({
       ...row,
-      comparisonUnitPrice: row.displayedPrice && row.comparisonQuantity ? Math.round(row.displayedPrice / row.comparisonQuantity) : null
+      comparisonUnitPrice: row.displayedPrice && row.comparisonQuantity ? (row.displayedPrice / row.comparisonQuantity) : null
     }));
 
     return res.status(200).json({ prices });
