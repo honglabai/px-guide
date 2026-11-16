@@ -1,4 +1,7 @@
-import { supabase } from '../_supabase.js';
+import products from '../../data/products-current.json' with { type: 'json' };
+import manifest from '../../public/catalog/manifest.json' with { type: 'json' };
+
+const catalogMap = new Map(products.map((p) => [p.slug, p]));
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'public, max-age=3600');
@@ -13,25 +16,22 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Missing ids parameter' });
   }
 
-  const ids = String(idsParam).split(',').filter((s) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s)).slice(0, 100);
+  const ids = String(idsParam)
+    .split(',')
+    .filter((s) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(s))
+    .slice(0, 100);
+
   if (!ids.length) {
-    return res.status(200).json({ products: [] });
-  }
-
-  try {
-    const { data: products, error } = await supabase
-      .from('catalog_products')
-      .select('id, slug, name, brandId:brand_id, categoryId:category_id, taxType:tax_type, sortOrder:sort_order, visible')
-      .in('slug', ids);
-
-    if (error) throw error;
-
     return res.status(200).json({
-      version: req.query.v || 'current',
-      products: products || []
+      version: req.query.v || manifest.version,
+      products: []
     });
-  } catch (err) {
-    console.error('Catalog products error:', err);
-    return res.status(500).json({ error: 'Failed to fetch products' });
   }
+
+  const matched = ids.map((id) => catalogMap.get(id)).filter(Boolean);
+
+  return res.status(200).json({
+    version: req.query.v || manifest.version,
+    products: matched
+  });
 }
