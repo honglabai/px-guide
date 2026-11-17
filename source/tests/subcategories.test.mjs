@@ -18,16 +18,26 @@ class Element {
  scrollIntoView(){}
  focus(){}
 }
-async function catalogFixture(query='',selective=false){
+async function catalogFixture(query='',selective=false,mediaQueryMatches=undefined,customData=null){
  const nodes=new Map(['.product-list','.shop-search input','#product-sort','#product-results','#product-pagination','.category-empty','#product-subcategories','#product-panel','#product-sort-note','.category-tabs'].map(s=>[s,new Element()]));
  const tabs=['전체','화장품','주류'].map((category,i)=>Object.assign(new Element(),{dataset:{category},id:'tab-'+i}));
  nodes.get('#product-sort').value='registered';
- const data=[...Array.from({length:12},(_,i)=>({slug:'cream-'+i,name:'수딩 크림 '+i,brand:'브랜드',category:'화장품',pxPrice:2000-i,officialPrice:3000})),{slug:'sun',name:'선크림',category:'화장품',pxPrice:1000,officialPrice:2000},{slug:'beer',name:'맥주',category:'주류',pxPrice:1500,officialPrice:2000}];
- let url='/products/'+query,requested=[],index=0;const entries=[url],listeners={};const browserLocation={search:query,pathname:'/products/'};const window={addEventListener:(type,fn)=>listeners[type]=fn,pxCurrentPrices:new Map(),pxLoadPrices:async slugs=>{requested.push(...slugs);}};
+ const data=customData||[...Array.from({length:12},(_,i)=>({slug:'cream-'+i,name:'수딩 크림 '+i,brand:'브랜드',category:'화장품',pxPrice:2000-i,officialPrice:3000})),{slug:'sun',name:'선크림',category:'화장품',pxPrice:1000,officialPrice:2000},{slug:'beer',name:'맥주',category:'주류',pxPrice:1500,officialPrice:2000}];
+ let url='/products/'+query,requested=[],index=0;const entries=[url],listeners={};const browserLocation={search:query,pathname:'/products/'};
+ let mediaQueryListener;
+ const mql = mediaQueryMatches!==undefined?{
+   matches:mediaQueryMatches,
+   addEventListener:(ev,fn)=>{if(ev==='change')mediaQueryListener=fn;},
+   addListener:(fn)=>{mediaQueryListener=fn;},
+   removeEventListener:()=>{},
+   removeListener:()=>{}
+ }:null;
+ const window={addEventListener:(type,fn)=>listeners[type]=fn,pxCurrentPrices:new Map(),pxLoadPrices:async slugs=>{requested.push(...slugs);}};
+ if(mql)window.matchMedia=()=>mql;
  if(selective)window.pxCatalogData={catalog:async()=>data.map((p,i)=>({...p,...(i<10?{_catalogFull:true}:{})})),products:async slugs=>data.filter(p=>slugs.includes(p.slug))};
  vm.runInNewContext(fs.readFileSync('product-catalog.js','utf8').replace(/^import[^\n]+\n/,''),{...ui,window,URLSearchParams,Event,location:browserLocation,history:{state:{pxNav:{id:'list-entry',depth:0}},replaceState(a,b,next){url=next;entries[index]=next;browserLocation.search=new URL(next,'https://example.com').search;},pushState(a,b,next){entries.splice(index+1);entries.push(next);index++;url=next;browserLocation.search=new URL(next,'https://example.com').search;}},document:{querySelector:s=>nodes.get(s),querySelectorAll:()=>tabs,createElement:()=>new Element(),dispatchEvent(){}},fetch:async()=>({ok:true,json:async()=>data})});
  await new Promise(r=>setImmediate(r));
- return {nodes,tabs,requested,window,url:()=>url,historyLength:()=>entries.length,back:()=>{index=Math.max(0,index-1);url=entries[index];browserLocation.search=new URL(url,'https://example.com').search;listeners.popstate();},forward:()=>{index=Math.min(entries.length-1,index+1);url=entries[index];browserLocation.search=new URL(url,'https://example.com').search;listeners.popstate();},sub:label=>nodes.get('#product-subcategories').children.find(x=>x.textContent.startsWith(label+' ')),grid:()=>nodes.get('.product-list').innerHTML,summary:()=>nodes.get('#product-results').textContent};
+ return {nodes,tabs,requested,window,url:()=>url,historyLength:()=>entries.length,back:()=>{index=Math.max(0,index-1);url=entries[index];browserLocation.search=new URL(url,'https://example.com').search;listeners.popstate();},forward:()=>{index=Math.min(entries.length-1,index+1);url=entries[index];browserLocation.search=new URL(url,'https://example.com').search;listeners.popstate();},sub:label=>nodes.get('#product-subcategories').children.find(x=>x.textContent.startsWith(label+' ')),grid:()=>nodes.get('.product-list').innerHTML,summary:()=>nodes.get('#product-results').textContent,setMobile:(isMobile)=>{if(mql){mql.matches=isMobile;mediaQueryListener?.({matches:isMobile});}}};
 }
 test('subcategory selection combines with sorting, search, pagination and parent reset',async()=>{
  const f=await catalogFixture();f.tabs[1].onclick();f.nodes.get('#product-subcategories').value='크림';f.nodes.get('#product-subcategories').onchange();
@@ -82,4 +92,28 @@ test('popup comparison link opens only products with the same subcategory',async
  const url=productActionLinks({slug:'cream-0',name:'수딩 크림 0',category:'화장품',subcategory:'크림',productGroup:'넓은 그룹'}).compare;
  const f=await catalogFixture(new URL(url,'https://px.test').search);
  assert.equal(f.nodes.get('#product-subcategories').value,'크림');assert.match(f.summary(),/크림 · 12개 상품/);assert.match(f.grid(),/cream-/);assert(!f.grid().includes('data-product-action="sun"'));assert(!f.grid().includes('data-product-action="beer"'));
+});
+
+test('desktop renders 15 items per page and mobile renders 10 items per page with live resize support',async()=>{
+ const testItems=Array.from({length:20},(_,i)=>({slug:'item-'+i,name:'상품 '+i,category:'식품',pxPrice:1000+i,officialPrice:2000+i}));
+ const fDesktop=await catalogFixture('',false,false,testItems);
+ assert.match(fDesktop.summary(),/20개 상품 중 1–15개 표시/);
+ const desktopCount=(fDesktop.grid().match(/class="product-card-shell"/g)||[]).length;
+ assert.equal(desktopCount,15);
+ fDesktop.nodes.get('#product-pagination').children.find(x=>x.textContent==='2').onclick();
+ assert.match(fDesktop.summary(),/20개 상품 중 16–20개 표시/);
+ const desktopP2Count=(fDesktop.grid().match(/class="product-card-shell"/g)||[]).length;
+ assert.equal(desktopP2Count,5);
+
+ const fMobile=await catalogFixture('',false,true,testItems);
+ assert.match(fMobile.summary(),/20개 상품 중 1–10개 표시/);
+ const mobileCount=(fMobile.grid().match(/class="product-card-shell"/g)||[]).length;
+ assert.equal(mobileCount,10);
+ fMobile.nodes.get('#product-pagination').children.find(x=>x.textContent==='2').onclick();
+ assert.match(fMobile.summary(),/20개 상품 중 11–20개 표시/);
+ const mobileP2Count=(fMobile.grid().match(/class="product-card-shell"/g)||[]).length;
+ assert.equal(mobileP2Count,10);
+
+ fDesktop.setMobile(true);
+ assert.match(fDesktop.summary(),/20개 상품 중/);
 });

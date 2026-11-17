@@ -12,6 +12,13 @@ import { productCard, productGroup, productSubcategory, comparisonPrice } from '
   if(requestedCategory)active=tabs.find(t=>t.dataset.category===requestedCategory)||active;
   tabs.forEach(t=>{t.setAttribute('aria-selected',String(t===active));t.tabIndex=t===active?0:-1;});
   $('#product-panel').setAttribute('aria-labelledby',active.id);
+  const mql=typeof window!=='undefined'&&window.matchMedia?window.matchMedia('(max-width: 760px)'):null;
+  const getPageSize=()=>mql?(mql.matches?10:15):10;
+  if(mql){
+    const onMediaChange=()=>{if(products){render();syncUrl(false);}};
+    if(mql.addEventListener)mql.addEventListener('change',onMediaChange);
+    else if(mql.addListener)mql.addListener(onMediaChange);
+  }
   function syncUrl(push=true){
     const params=new URLSearchParams();if(active.dataset.category!=='전체')params.set('category',active.dataset.category);if(subcategory)params.set('subcategory',subcategory);if(group)params.set('group',group);if(search.value.trim())params.set('q',search.value.trim());if(sort.value!=='registered')params.set('sort',sort.value);if(page>1)params.set('page',page);
     const url=location.pathname+(params.size?'?'+params.toString():'');
@@ -47,16 +54,17 @@ import { productCard, productGroup, productSubcategory, comparisonPrice } from '
     const query=search.value.trim().normalize('NFC').toLocaleLowerCase('ko-KR');
     const matches=products.filter(p=>(active.dataset.category==='전체'||active.dataset.category===p.category)&&(!subcategory||p.subcategory===subcategory)&&(!group||productGroup(p)===group)&&(!query||p.search.includes(query)||(/^[ㄱ-ㅎ\s]+$/.test(query)&&initials(p.search).includes(initials(query)))));
     matches.sort((a,b)=>{if(sort.value==='registered')return a.order-b.order;if(sort.value.startsWith('price-'))return (a.pxPrice===null?1:b.pxPrice===null?-1:(sort.value==='price-low'?a.pxPrice-b.pxPrice:b.pxPrice-a.pxPrice))||a.order-b.order;const ar=rate(a),br=rate(b);return (ar===null?br===null?0:1:br===null?-1:br-ar)||a.order-b.order;});
-    const pages=Math.ceil(matches.length/10);page=Math.max(1,Math.min(page,pages||1));
-    const token=++hydrateToken,shown=matches.slice((page-1)*10,page*10);
+    const pageSize=getPageSize();
+    const pages=Math.ceil(matches.length/pageSize);page=Math.max(1,Math.min(page,pages||1));
+    const token=++hydrateToken,shown=matches.slice((page-1)*pageSize,page*pageSize);
     if(window.pxCatalogData&&shown.some(p=>!p._catalogFull)){window.pxCatalogData.products(shown.map(p=>p.slug)).then(rows=>{const loaded=new Map(rows.map(p=>[p.slug,p]));if(shown.some(p=>!loaded.has(p.slug)))throw Error('Incomplete catalog');for(const p of products){const full=loaded.get(p.slug);if(full)Object.assign(p,full,{_catalogFull:true});}if(token===hydrateToken)render();}).catch(()=>{if(token===hydrateToken)summary.textContent='전체 목록을 불러오지 못했습니다. 새로고침해 주세요.';});return;}
-    grid.innerHTML=matches.slice((page-1)*10,page*10).map(p=>productCard({...p,currentPrice:current(p),currentStatus:typeof window!=='undefined'&&window.pxPriceStatus?.(p.slug)})).join('');
+    grid.innerHTML=shown.map(p=>productCard({...p,currentPrice:current(p),currentStatus:typeof window!=='undefined'&&window.pxPriceStatus?.(p.slug)})).join('');
     grid.querySelectorAll('img').forEach(image=>image.onerror=()=>{image.onerror=null;image.removeAttribute('srcset');image.src='/images/home/image-pending.svg';});
     document.dispatchEvent(new Event('px-catalog-rendered'));
     if(!window.pxCatalogReady){window.pxCatalogReady=true;document.dispatchEvent(new Event('px-catalog-ready'));}
-    if(typeof window!=='undefined')window.pxLoadPrices?.(matches.slice((page-1)*10,page*10).map(p=>p.slug));
+    if(typeof window!=='undefined')window.pxLoadPrices?.(shown.map(p=>p.slug));
     empty.hidden=matches.length>0;empty.textContent='조건에 맞는 상품이 없습니다. 다른 소분류를 선택하거나 검색어를 변경하세요.';
-    summary.textContent=matches.length?`${active.dataset.category!=='전체'?active.dataset.category+' · ':''}${subcategory?subcategory+' · ':group?group+' · ':''}${matches.length.toLocaleString('ko-KR')}개 상품 중 ${(page-1)*10+1}–${Math.min(page*10,matches.length)}개 표시`:'검색 결과 0개';
+    summary.textContent=matches.length?`${active.dataset.category!=='전체'?active.dataset.category+' · ':''}${subcategory?subcategory+' · ':group?group+' · ':''}${matches.length.toLocaleString('ko-KR')}개 상품 중 ${(page-1)*pageSize+1}–${Math.min(page*pageSize,matches.length)}개 표시`:'검색 결과 0개';
     $('#product-sort-note').hidden=sort.value!=='sales';pagination.hidden=pages<=1;pagination.replaceChildren();
     if(pages>1){
       function button(label,target,disabled){const el=document.createElement('button');el.type='button';el.textContent=label;el.disabled=disabled;el.setAttribute('aria-label',label==='‹'?'이전 페이지':label==='›'?'다음 페이지':label+'페이지');if(target===page&&/^\d+$/.test(label))el.setAttribute('aria-current','page');el.onclick=()=>{page=target;syncUrl();render();$('.category-tabs').scrollIntoView({block:'start',behavior:'smooth'});};pagination.append(el);}
