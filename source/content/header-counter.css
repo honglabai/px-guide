@@ -44,7 +44,7 @@ footer>p{margin:14px auto 0;max-width:1140px;text-align:left}
 
 /* Header identity uses the supplied icon style as a horizontal image banner. */
 .brand-group .brand{display:block;width:210px;max-width:100%;font-size:0;letter-spacing:0}
-.brand-banner{display:block;width:100%;height:auto;object-fit:contain}
+.brand-banner{display:block;width:100%;height:auto;aspect-ratio:2048/683;object-fit:contain}
 @media(max-width:760px){.brand-group .brand{width:180px;max-width:100%}}
 
 /* Keep contact and home-screen controls against the right edge. */

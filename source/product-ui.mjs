@@ -9,7 +9,8 @@ export function productImageAttributes(p,{detail=false}={}){
  const src=detail?p.imageUrl:p.imageThumbUrl||p.imageUrl;
  const width=detail?p.imageWidth:p.imageThumbWidth||p.imageWidth;
  const height=detail?p.imageHeight:p.imageThumbHeight||p.imageHeight;
- return `src="${esc(src||'/images/home/image-pending.svg')}"${p.imageSrcSet?` srcset="${esc(p.imageSrcSet)}" sizes="${detail?'(max-width: 750px) calc(100vw - 40px), 750px':'(max-width: 750px) calc((100vw - 36px) / 2), (max-width: 1100px) 30vw, 300px'}"`:''}${width&&height?` width="${width}" height="${height}"${detail?` style="max-width:${width}px;height:auto;margin-inline:auto"`:''}`:''} decoding="async"`;
+ const sizes=detail?'(max-width: 750px) calc(100vw - 40px), 750px':'(max-width: 600px) 120px, (max-width: 900px) 160px, 220px';
+ return `src="${esc(src||'/images/home/image-pending.svg')}"${p.imageSrcSet?` srcset="${esc(p.imageSrcSet)}" sizes="${sizes}"`:''}${width&&height?` width="${width}" height="${height}"${detail?` style="max-width:${width}px;height:auto;margin-inline:auto"`:''}`:''} decoding="async"`;
 }
 export function productGroup(p){
  if(p.productGroup)return p.productGroup;

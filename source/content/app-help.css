@@ -9,11 +9,11 @@
 .app-help-dialog{width:min(720px,calc(100vw - 24px));max-height:92dvh;margin:auto;inset:0;padding:8px;border:1px solid #bfd0e7;border-radius:18px;color:#17355e;background:#fff;overflow:auto;box-sizing:border-box;box-shadow:0 12px 32px rgba(21,62,117,0.2)}
 .app-help-dialog::backdrop{background:#17253780;backdrop-filter:blur(2px)}
 .app-help-banner{display:block;width:100%;max-width:100%;border-radius:12px;overflow:hidden;line-height:0}
-.app-help-banner img{display:block;width:100%;max-width:100%;height:auto;border-radius:12px}
+.app-help-banner img{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:760/440;border-radius:12px}
 .app-help-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 4px 2px}
 .app-help-controls label{display:flex;align-items:center;gap:6px;font-size:13.5px;color:#475569;cursor:pointer;user-select:none}
 .app-help-controls input{width:18px;height:18px;margin:0;cursor:pointer;accent-color:#0b57d0}
 .app-help-controls button{border:0;background:#0b57d0;color:#fff;font:inherit;font-weight:700;border-radius:8px;padding:7px 20px;min-height:36px;cursor:pointer;transition:background .15s ease}
 .app-help-controls button:hover{background:#0842a0}
-@media(max-width:640px){.app-help-dialog{width:min(390px,calc(100vw - 20px));margin:auto;inset:0;padding:6px;border-radius:16px}.app-help-controls{padding:6px 2px 2px}.app-help-controls label{font-size:13px}.app-help-controls button{padding:6px 16px;font-size:13.5px;min-height:34px}}
+@media(max-width:640px){.app-help-dialog{width:min(390px,calc(100vw - 20px));margin:auto;inset:0;padding:6px;border-radius:16px}.app-help-banner img{aspect-ratio:380/550}.app-help-controls{padding:6px 2px 2px}.app-help-controls label{font-size:13px}.app-help-controls button{padding:6px 16px;font-size:13.5px;min-height:34px}}
 @media(max-width:600px){:root{--title-tab-font:clamp(.875rem,3.9vw,1rem)}}
