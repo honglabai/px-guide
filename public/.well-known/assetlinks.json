@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.honglabai.pxguide",
+        "sha256_cert_fingerprints": ["06:60:EB:0B:65:60:5D:57:20:DA:C8:61:2F:74:02:2F:C7:E7:9C:25:1D:68:C4:07:35:AB:0F:A0:5C:0A:5F:19"]
+      }
+    }]

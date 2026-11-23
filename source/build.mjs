@@ -359,6 +359,11 @@ fs.cpSync('assets/products-optimized',path.join(out,'images/products-optimized')
 
 write('_headers','/images/products-optimized/*\n  Cache-Control: public, max-age=31536000, immutable\n');
 
+fs.mkdirSync(path.join(out,'.well-known'),{recursive:true});
+if(fs.existsSync('.well-known/assetlinks.json')){
+  fs.copyFileSync('.well-known/assetlinks.json',path.join(out,'.well-known/assetlinks.json'));
+}
+
 write('launch/index.html',fs.readFileSync('content/mobile-launch.html','utf8'));
 
 cssChunks.push(fs.readFileSync('content/subcategories.css','utf8'));
