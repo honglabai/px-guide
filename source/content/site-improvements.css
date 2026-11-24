@@ -20,10 +20,7 @@ body>header{position:sticky;top:0;z-index:40;background:#fff;padding-top:env(saf
  .home-shuffle .shuffle-track{position:absolute;inset:0;height:100%}
 }
 
-/* Navigation order: home, all products, monthly offers, nearby PX. */
-.shop-nav a,.shop-nav a[aria-current="page"]{padding-top:4.8px;padding-bottom:4.8px}
-body>header{border-bottom:3px solid #fff}
-.shop-nav a:nth-child(2){--nav-tab-ratio:5}.shop-nav a:nth-child(3){--nav-tab-ratio:6}
+
 .home-coupang-ad{margin:18px 0 0}.home-ad-label{display:block;margin:0 0 3px;font-size:.7rem;color:#6c7787}
 .home-coupang-ad-link{display:block;overflow:hidden;border-radius:6px;background:#082c87;line-height:0}
 .home-coupang-ad-link picture,.home-coupang-ad-link img{display:block;width:100%;height:auto;aspect-ratio:2048/683}

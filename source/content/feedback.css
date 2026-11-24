@@ -1,5 +1,4 @@
-/* Five tabs keep the established height and distribute all mobile width. */
-.shop-nav a:nth-child(5){--nav-tab-ratio:2}
+
 .feedback-board{max-width:var(--site-width);padding:8px 8px 24px}
 .feedback-toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .feedback-board button,.feedback-board select,.feedback-board input,.feedback-board textarea{font:inherit;font-size:14px;border-radius:5px;border:1px solid #c6d5e7;box-sizing:border-box}
