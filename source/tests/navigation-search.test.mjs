@@ -12,12 +12,15 @@ test('only home and product catalog expose product search in their requested pos
  assert(catalog.indexOf('class="shop-search"')<catalog.indexOf('class="category-tabs"'));
  for(const route of ['favorites/','shopping/'])assert(!html(route).includes('type="search"'));
 });
-test('five navigation tabs and footer retain the intended destinations',()=>{
- for(const route of ['','monthly/','products/','nearby/','guides/','favorites/','shopping/']){
+test('four navigation tabs and footer retain the intended destinations',()=>{
+ for(const route of ['','monthly/','products/','nearby/','guides/','favorites/','shopping/','faq/']){
   const page=html(route),nav=page.match(/<nav class="shop-nav"[\s\S]*?<\/nav>/)[0];
-  assert.deepEqual([...nav.matchAll(/href="([^"]+)"[^>]*><span[^>]*><\/span>([^<]+)<\/a>/g)].map(m=>[m[1],m[2]]),[['/','홈'],['/products/','전체 상품'],['/monthly/','이달의 할인'],['/nearby/','가까운 PX'],['/contact/','문의']]);
+  assert.deepEqual([...nav.matchAll(/href="([^"]+)"[^>]*><span[^>]*><\/span>([^<]+)<\/a>/g)].map(m=>[m[1],m[2]]),[['/','홈'],['/products/','전체 상품'],['/monthly/','이달의 할인'],['/nearby/','가까운 PX']]);
   assert(page.includes('<div class="footer-title"><a href="/guides/">PX 구매 가이드</a>'));
+  assert(page.includes('<a href="/contact/">문의</a><a href="/faq/">FAQ</a>'));
  }
+ assert(html('faq/').includes('자주 묻는 질문 (FAQ)'));
+ assert(html('faq/').includes('faq-card'));
  assert(html('guides/').includes('id="category-guides"'));
  assert(!html('products/').includes('확인가가 없으면 날짜가 적힌 이전 기록'));
  assert(!html('products/').includes('쿠팡 확인가는 시점에 따라 달라집니다.'));
