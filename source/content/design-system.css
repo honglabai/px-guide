@@ -167,11 +167,10 @@ html,body{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{d
 .faq-group h2{font-size:1.25rem;font-weight:750;color:#1c355e;margin:0 0 16px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;gap:8px}
 .faq-card{border:1px solid #dce2e9;border-radius:10px;background:#fff;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.03);transition:border-color .15s ease}
 .faq-card[open]{border-color:#2869bd}
-.faq-card summary{padding:16px 20px;font-size:1rem;font-weight:650;color:#1a233a;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;background:#f8fafc;user-select:none}
+.faq-card summary{padding:16px 20px;font-size:1rem;font-weight:650;color:#1a233a;cursor:pointer;list-style:none;display:block;background:#f8fafc;user-select:none}
 .faq-card summary::-webkit-details-marker{display:none}
-.faq-card summary::after{content:'+';font-size:1.25rem;font-weight:700;color:#5a6882;line-height:1}
+.faq-card summary::after,.faq-card[open] summary::after{display:none!important;content:none!important}
 .faq-card[open] summary{background:#eef5ff;color:#1854a0}
-.faq-card[open] summary::after{content:'−';color:#1854a0}
 .faq-answer{padding:16px 20px;font-size:.9375rem;line-height:1.75;color:#334155;background:#fff;border-top:1px solid #e9eef5}
 .faq-answer p{margin:0}
 .faq-answer p+p{margin-top:10px}
