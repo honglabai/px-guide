@@ -5,3 +5,9 @@ node_modules/
 .vercel
 source/dist/
 
+
+# Android private signing material
+*.keystore
+*.jks
+*.p12
+signing-key-info.txt
