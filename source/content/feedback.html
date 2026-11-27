@@ -1,8 +1,8 @@
-<section class="pagehead list-pagehead title-tab-line"><h1 class="title-tab">문의 게시판</h1></section>
-<section class="feedback-board section">
- <div class="feedback-toolbar"><label for="feedback-filter" class="sr-only">문의 유형 필터</label><select id="feedback-filter"><option value="">전체 문의</option><option value="problem">문제 신고</option><option value="suggestion">개선 건의</option><option value="question">일반 문의</option></select><button type="button" id="feedback-compose">글쓰기</button></div>
- <p class="feedback-note">누구나 로그인 없이 글을 남길 수 있습니다. 작성한 글은 모두에게 공개되니 연락처·개인정보는 적지 마세요.</p>
- <form id="feedback-form" hidden aria-label="문의 작성"><h2 id="feedback-form-title">문의 작성</h2><div class="feedback-fields"><label>유형<select name="category" required><option value="problem">문제 신고</option><option value="suggestion">개선 건의</option><option value="question">일반 문의</option></select></label><label>별명 <span>(선택)</span><input name="nickname" maxlength="20" autocomplete="nickname" placeholder="미입력 시 익명"></label></div><label>제목<input name="title" required maxlength="100" placeholder="문의 내용을 한 줄로 적어 주세요"></label><label>내용<textarea name="body" required maxlength="4000" rows="7" placeholder="문제가 발생한 화면, 사용 기기와 상황 등을 알려 주세요."></textarea></label><p class="feedback-note">작성한 브라우저에서만 본인 글을 수정·삭제할 수 있습니다.</p><div class="feedback-form-actions"><button type="button" id="feedback-cancel">취소</button><button type="submit" id="feedback-submit">등록</button></div></form>
- <p id="feedback-status" role="status" aria-live="polite">게시글을 불러오는 중…</p><div id="feedback-list"></div><button type="button" id="feedback-more" hidden>더 보기</button>
- <p class="feedback-email">이메일 문의: <a href="mailto:honglabai@gmail.com">honglabai@gmail.com</a></p>
-</section><script src="/feedback.js" defer></script>
+<section class="pagehead list-pagehead title-tab-line"><h1 class="title-tab">문의</h1></section>
+<section class="section" aria-labelledby="contact-email-title">
+  <h2 id="contact-email-title">이메일로 문의하기</h2>
+  <p>이용 중 불편한 점이나 개선 의견은 이메일로 보내 주세요. 문의 내용은 사이트에 공개되지 않습니다.</p>
+  <p><a href="mailto:honglabai@gmail.com?subject=PX%20%EA%B5%AC%EB%A7%A4%20%EA%B0%80%EC%9D%B4%EB%93%9C%20%EB%AC%B8%EC%9D%98">honglabai@gmail.com</a></p>
+  <p>오류를 제보할 때는 문제가 발생한 화면과 상황을 알려 주세요. 비밀번호나 민감한 개인정보는 보내지 마세요.</p>
+  <p><a href="/privacy/">개인정보 안내</a></p>
+</section>
