@@ -3,6 +3,13 @@
  const storage={get(key){try{return JSON.parse(sessionStorage.getItem(key)||'null');}catch{return null;}},set(key,value){try{sessionStorage.setItem(key,JSON.stringify(value));}catch{}},remove(key){try{sessionStorage.removeItem(key);}catch{}}};
  const id=()=>`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
  const local=url=>{try{const value=new URL(url,location.href);return value.origin===location.origin&&!value.pathname.startsWith('/launch/')?value:null;}catch{return null;}};
+ const nativeNearby=/Android/i.test(navigator.userAgent)&&(()=>{try{return sessionStorage.getItem('px-native-nearby')==='4';}catch{return false;}})();
+ if(nativeNearby){
+  for(const a of document.querySelectorAll('a[href]')){
+   const target=local(a.href);
+   if(target&&/^\/nearby\/?$/.test(target.pathname))a.href='intent://nearby#Intent;scheme=pxguide;package=com.honglabai.pxguide;S.browser_fallback_url='+encodeURIComponent(new URL('/nearby/?web=1',location.origin).href)+';end';
+  }
+ }
  const nav=()=>history.state?.pxNav;
  const replace=state=>history.replaceState(state,'',location.href);
  const pending=storage.get(KEY);storage.remove(KEY);
