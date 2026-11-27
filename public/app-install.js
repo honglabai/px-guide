@@ -5,13 +5,15 @@
   const instructions = document.querySelector('[data-install-instructions]');
   if (!button || !label || !guide || !instructions) return;
   let installPrompt = null;
-  let installed = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const nativeView = /\bPXGuideNearby\/1\b/.test(navigator.userAgent);
+  let installed = nativeView || window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   const targetHost = 'pxguide.honglabai.com';
   const appUrl = 'https://' + targetHost + '/';
   const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
   const isTargetHost = location.hostname === targetHost;
 
   const shareApp = async () => {
+    if(nativeView){location.href='pxguide://nearby/share';return;}
     if (navigator.share) {
       try {
         await navigator.share({ title: 'PX 가이드', url: appUrl });
