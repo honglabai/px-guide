@@ -56,9 +56,10 @@ test('distance ordering uses coordinates, leaves unknown positions last, and for
  assert.deepEqual(nearestStores([{id:'far',...busan},{id:'unknown'},{id:'near',...seoul}],seoul).map(s=>s.id),['near','far','unknown']);
  assert.equal(distanceLabel(.125),'125m');assert.equal(distanceLabel(3.25),'3.3km');assert.equal(distanceLabel(null),'거리 미확인');
 });
-test('initial location and a fresh refresh reorder the cards while filters continue to apply',()=>{
+test('user-requested location and a fresh refresh reorder the cards while filters continue to apply',()=>{
  const calls=[],geolocation={getCurrentPosition(success,error,options){calls.push({success,error,options});}};
- const {ids,cards}=fixture({geolocation,now:()=>new Date('2026-10-23T00:00:00Z')});
+ const {ids,cards}=fixture({geolocation,retryLater:fn=>fn(),now:()=>new Date('2026-10-23T00:00:00Z')});
+ assert.equal(calls.length,0);assert.equal(ids.locate.textContent,'내 위치로 찾기');ids.locate.events.click();
  assert.equal(calls.length,1);assert.equal(ids.locate.disabled,true);
  calls[0].success({coords:{latitude:37,longitude:127}});
  assert.equal(ids.list.children[0],cards[0]);assert.equal(ids.locate.disabled,false);assert.equal(cards[0].distanceNode.textContent,'0m');assert.match(ids.count.textContent,/가까운 순/);
@@ -66,13 +67,13 @@ test('initial location and a fresh refresh reorder the cards while filters conti
  calls[1].success({coords:{latitude:37.02,longitude:127}});assert.equal(ids.list.children[0],cards[2]);
  ids.query.value=cards[0].dataset.name;ids.query.events.input();assert(!cards[0].hidden);
  ids.reset.events.click();assert.equal(ids.list.children[0],cards[2]);
- ids.locate.events.click();calls[2].error({code:3});assert.equal(ids.locate.disabled,false);assert.match(ids['location-status'].textContent,/위치 기준 유지/);assert.equal(ids.list.children[0],cards[2]);
+ ids.locate.events.click();calls[2].error({code:3});assert.equal(ids.locate.disabled,true);assert.equal(calls[3].options.enableHighAccuracy,false);assert.equal(calls[3].options.timeout,20000);calls[3].error({code:3});assert.equal(calls.length,4);assert.equal(ids.locate.disabled,false);assert.match(ids['location-status'].textContent,/위치 기준 유지/);assert.equal(ids.list.children[0],cards[2]);
 });
 test('denied location and unsupported geolocation preserve search and never invent distance',()=>{
  let reject;const {ids,cards}=fixture({geolocation:{getCurrentPosition(success,error){reject=error;}}});
- reject({code:1});assert.match(ids['location-status'].textContent,/권한/);assert(cards.every(c=>c.distanceNode.hidden));
+ assert.equal(reject,undefined);ids.locate.events.click();reject({code:1});assert.match(ids['location-status'].textContent,/권한/);assert(cards.every(c=>c.distanceNode.hidden));
  ids.query.value='서울 사당';ids.query.events.input();assert.equal(cards.filter(c=>!c.hidden).length,1);
- const noGeo=fixture({geolocation:null});assert.match(noGeo.ids['location-status'].textContent,/지역·도시로 검색/);
+ const noGeo=fixture({geolocation:null});noGeo.ids.locate.events.click();assert.match(noGeo.ids['location-status'].textContent,/지역·도시로 검색/);
 });
 test('compact store cards keep both opening hours together and the location refresh beside search',()=>{
  const html=fs.readFileSync('dist/client/nearby/index.html','utf8');
@@ -86,4 +87,10 @@ test('stored coordinates are backed by a location source and stay inside Korea',
  assert(located.every(s=>s.coordinateSource&&s.latitude>=33&&s.latitude<=39&&s.longitude>=124&&s.longitude<=131));
  const dream=stores.find(s=>s.store_name==='드림'),happy=stores.find(s=>s.store_name==='행복드림');assert.notEqual(dream.latitude,happy.latitude);
  assert.equal(stores.find(s=>s.store_name==='항무').latitude,undefined);
+});
+
+test('a transient unavailable result retries once and uses the first valid position',()=>{
+ const calls=[], later=[];const {ids,cards}=fixture({geolocation:{getCurrentPosition(ok,error,options){calls.push({ok,error,options});}},retryLater:fn=>later.push(fn)});
+ ids.locate.events.click();calls[0].error({code:2});ids.locate.events.click();assert.equal(calls.length,1);assert.equal(later.length,1);later[0]();
+ assert.equal(calls[1].options.maximumAge,60000);calls[1].ok({coords:{latitude:37.04,longitude:127}});assert.equal(ids.list.children[0],cards[4]);assert.equal(ids.locate.disabled,false);
 });
