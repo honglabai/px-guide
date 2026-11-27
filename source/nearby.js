@@ -51,14 +51,6 @@ export function setupFinder(root,{geolocation=globalThis.navigator?.geolocation,
  region.addEventListener('change',()=>{cities();render();});city.addEventListener('change',render);
  root.querySelector('#px-store-reset').addEventListener('click',()=>{search.value='';region.value='';cities();render();search.focus();});
  locate.addEventListener('click',refresh);
- if (/Android/i.test(globalThis.navigator?.userAgent||'')) {
-  const androidButton=root.ownerDocument.createElement('a');
-  androidButton.href='intent://nearby#Intent;scheme=pxguide;package=com.honglabai.pxguide;end';
-  androidButton.textContent='Android 위치 찾기';
-  androidButton.title='PX가이드 내부 테스트 1.0.2 이상에서 지원';
-  androidButton.style.cssText='display:inline-block;margin:6px 0;padding:9px 14px;background:#214d30;color:#fff;border-radius:8px;font-weight:700;text-decoration:none';
-  status.before(androidButton);
- }
  locate.textContent='내 위치로 찾기';
  status.textContent='내 위치로 찾기를 누르면 매장을 가까운 순으로 정렬합니다.';
  cities();render();
