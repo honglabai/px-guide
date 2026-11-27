@@ -3,12 +3,22 @@
  const storage={get(key){try{return JSON.parse(sessionStorage.getItem(key)||'null');}catch{return null;}},set(key,value){try{sessionStorage.setItem(key,JSON.stringify(value));}catch{}},remove(key){try{sessionStorage.removeItem(key);}catch{}}};
  const id=()=>`${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`;
  const local=url=>{try{const value=new URL(url,location.href);return value.origin===location.origin&&!value.pathname.startsWith('/launch/')?value:null;}catch{return null;}};
- const nativeNearby=/Android/i.test(navigator.userAgent)&&(()=>{try{return sessionStorage.getItem('px-native-nearby')==='4';}catch{return false;}})();
+ const nativeView=/\bPXGuideNearby\/1\b/.test(navigator.userAgent);
+ const nativeNearby=!nativeView&&/Android/i.test(navigator.userAgent)&&(()=>{try{
+  const u=new URL(location.href);
+  if(u.searchParams.get('px_android')==='6'){sessionStorage.setItem('px-native-nearby','6');u.searchParams.delete('px_android');history.replaceState(history.state,'',u.href);}
+  return sessionStorage.getItem('px-native-nearby')==='6';
+ }catch{return false;}})();
  if(nativeNearby){
-  for(const a of document.querySelectorAll('a[href]')){
-   const target=local(a.href);
-   if(target&&/^\/nearby\/?$/.test(target.pathname))a.href='intent://nearby#Intent;scheme=pxguide;package=com.honglabai.pxguide;S.browser_fallback_url='+encodeURIComponent(new URL('/nearby/?web=1',location.origin).href)+';end';
-  }
+  const getCount=name=>Math.min(99999,Math.max(0,Number.parseInt(document.querySelector(`[data-${name}-count]`)?.textContent,10)||0));
+  const intent=()=>`intent://nearby#Intent;scheme=pxguide;package=com.honglabai.pxguide;i.px_fav=${getCount('favorite')};i.px_cart=${getCount('shopping')};S.browser_fallback_url=${encodeURIComponent(new URL('/nearby/',location.origin).href)};end`;
+  const isNearby=a=>{const u=a&&local(a.href);return u&&/^\/nearby\/?$/.test(u.pathname)&&!u.search;};
+  // Change the actual link in the user gesture; ordinary browser navigations remain HTTPS.
+  document.addEventListener('click',event=>{
+   if(event.defaultPrevented||event.button>0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+   const a=event.target.closest?.('a[href]');if(!a||!isNearby(a)||a.hasAttribute('download')||(a.target&&a.target!=='_self'))return;
+   const href=a.href;a.href=intent();setTimeout(()=>{a.href=href;},0);
+  },true);
  }
  const nav=()=>history.state?.pxNav;
  const replace=state=>history.replaceState(state,'',location.href);
@@ -29,6 +39,7 @@
  function prepare(url,depth=nav()?.depth||0){saveScroll();storage.set(KEY,{url:url.href,depth,at:Date.now()});}
  function back(){
   const dialog=document.querySelector('dialog[open]');if(dialog){dialog.close();return;}
+  if(nativeView){location.href='pxguide://nearby/back';return;}
   saveScroll();
   if(nav()?.depth>0&&history.length>1)history.back();else if(location.pathname!=='/')location.assign('/');
  }
